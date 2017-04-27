@@ -116,7 +116,7 @@ async function draw() {
       const barChart = new google.visualization.BarChart(document.getElementById('barChart'));
 
       const options = {
-        height: 320 
+        height: 320
       };
 
       barChart.draw(dataBar, options);
@@ -131,14 +131,14 @@ async function draw() {
 }
 
 // XXXXをご自身のFirebaseプロジェク卜のURLに変更してください
-const baseUrl = 'https://XXXX.firebaseio.com/'; 
+const baseUrl = process.env.FIREBASE_URL;
 const url = `${baseUrl}teams/.json`;
 const myFirebaseRef = new Firebase(baseUrl);
 
 // 初回描画
 google.setOnLoadCallback(draw);
 
-// 次回以降 
+// 次回以降
 myFirebaseRef.child("teams/").on("child_changed", () => {
   draw();
 });

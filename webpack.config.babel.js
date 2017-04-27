@@ -21,7 +21,10 @@ export default {
   devtool: 'inline-source-map',
 
   plugins: [
-    new webpack.optimize.UglifyJsPlugin({minimize: true})
+    new webpack.optimize.UglifyJsPlugin({minimize: true}),
+    new webpack.DefinePlugin({
+            'process.env.FIREBASE_URL': `"${process.env.FIREBASE_URL}"`
+    })
   ],
 
   module: {
