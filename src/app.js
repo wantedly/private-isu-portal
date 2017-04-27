@@ -131,7 +131,7 @@ async function draw() {
 }
 
 // XXXXをご自身のFirebaseプロジェク卜のURLに変更してください
-const baseUrl = 'https://XXXX.firebaseio.com/'; 
+const baseUrl = process.env.FIREBASE_URL;
 const url = `${baseUrl}teams/.json`;
 const myFirebaseRef = new Firebase(baseUrl);
 
