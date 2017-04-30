@@ -1,0 +1,49 @@
+#!/bin/bash
+
+#
+# Deploy  isucon
+# Usage:
+#   ./deploy
+#
+
+set -eu
+set -o pipefail
+
+AMI_ID=ami-18b05179
+AVAILABILITY_ZONE=ap-northeast-1b
+INSTANCE_TYPE=c4.large
+SSH_KEY_NAME=aws-ec2-tokyo
+VOLUME_SIZE=50
+
+#
+# QA Network
+#
+SECURITY_GROUPS=sg-31649054,sg-7cb17419,sg-29ea264c,sg-596e543d
+SUBNET_ID=subnet-d76f71a3
+
+if [[ -z $(ec2c version | grep -E '^ec2c') ]]; then
+  echo "===> Installing ec2c..."
+  go get github.com/dtan4/ec2c
+fi
+
+echo "===> Launch EC2 instance ..."
+instance_id=$(
+  ec2c launch \
+       --ami $AMI_ID \
+       --az $AVAILABILITY_ZONE \
+       --type $INSTANCE_TYPE \
+       --key $SSH_KEY_NAME \
+       --sg $SECURITY_GROUPS \
+       --subnet $SUBNET_ID \
+       --volume-size $VOLUME_SIZE \
+       --volume-type gp2 \
+       --public true
+)
+
+echo "===> Tagging EC2 instance as  private-isu..."
+ec2c tag \
+     --instances $instance_id \
+     --tags private-isu,Name=private-isu,app=private-isu
+
+echo ""
+echo "===> Successfully launched! Instance ID: $instance_id"
