@@ -116,7 +116,7 @@ async function draw() {
       const barChart = new google.visualization.BarChart(document.getElementById('barChart'));
 
       const options = {
-        height: 320
+        height: 500
       };
 
       barChart.draw(dataBar, options);
