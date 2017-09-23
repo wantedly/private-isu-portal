@@ -21,5 +21,6 @@ spec:
       containers:
       - image: quay.io/koudaiii/private-isu-portal:latest
         name: private-isu-portal
+        imagePullPolicy: Always
         ports:
         - containerPort: 80
