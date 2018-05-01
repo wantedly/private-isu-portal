@@ -45,8 +45,6 @@ async function draw() {
     const teams = Object.keys(jsonResponse);
     const arrayToDraw = []; // グラフ描画用の配列
     const timeStamps = [];  // グラフ描画用の配列を作成するための、一時的なタイムスタンプ配列
-    const start_mask = new Date("Tue, 1 May 2018 17:00:00 +0900").getTime();
-    const end_mask = new Date("Tue, 1 May 2018 18:00:00 +0900").getTime();
 
     // タイムスタンプのみが格納された配列を作る
     teams.forEach(teamName => {
@@ -64,9 +62,7 @@ async function draw() {
         let t = 0;
         Object.values(jsonResponse[teamName]).forEach(result => {
           if(result.timestamp === timestamp) {
-            if(result.timestamp < start_mask || result.timestamp > end_mask){
-              t = result.score;
-            }
+            t = result.score;
           }
         });
         arrayToDraw[i][k + 1] = t || 0;
