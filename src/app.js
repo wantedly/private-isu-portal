@@ -64,10 +64,8 @@ async function draw() {
         let t = 0;
         Object.values(jsonResponse[teamName]).forEach(result => {
           if(result.timestamp === timestamp) {
-            if(result.score >= 0){
-              if(result.timestamp < start_mask || result.timestamp > end_mask){
-                t = result.score;
-              }
+            if(result.timestamp < start_mask || result.timestamp > end_mask){
+              t = result.score;
             }
           }
         });
