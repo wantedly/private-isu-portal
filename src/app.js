@@ -62,7 +62,9 @@ async function draw() {
         let t = 0;
         Object.values(jsonResponse[teamName]).forEach(result => {
           if(result.timestamp === timestamp) {
-            t = result.score;
+            if(result.score >= 0){
+               t = result.score;
+              }
           }
         });
         arrayToDraw[i][k + 1] = t || 0;
